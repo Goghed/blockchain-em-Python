@@ -131,7 +131,7 @@ def mine_block():
     #pegar o proof desse bloco
     previous_proof = previous_block['proof']
 
-    #
+    #pegando o valor do proof anterior
     proof = blockchain.proof_of_work(previous_proof)
 
     #precisamos do hash anterior
@@ -148,13 +148,15 @@ def mine_block():
                 'previous_hash': block['previous_hash']}
     return jsonify(response), 200
 
+#roteamento para indicar qual é a funçao que estamos chamando
 @app.route('/get_chain', methods = ['GET'])
 def get_chain():
 
+    #mostrar os resultados na tela do navegador
     response= {'chain': blockchain.chain,
                 'length': len(blockchain.chain)}
     return jsonify(response), 200
 
-
+#rodando a aplicação com ip 0.0.0.0 para pegar o ip da rede automatico
 app.run(host='0.0.0.0', port=5000)
 
